@@ -1,420 +1,561 @@
-import React, { useState } from 'react';
-import { 
-  MapPin, School, BookOpen, Users, User, FileText, 
-  Video, Calendar, CheckCircle, ChevronRight, Award, Image as ImageIcon,
-  Mail, Phone, GraduationCap, UserCheck
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Portfolio PPL PPG BK | 3 Siklus</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb', // Blue-600
+                        secondary: '#1e40af', // Blue-800
+                        accent: '#38bdf8', // Light blue
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-// --- DATA SIKLUS PPL ---
-const cycleData = [
-  {
-    id: 1,
-    title: "Siklus 1: Bimbingan Klasikal",
-    theme: "Kesiapan Karir dan Studi Lanjut Lulusan SMK",
-    date: "Minggu ke-2 & 3",
-    sasaran: "Kelas XII TKJ 1 (Teknik Komputer dan Jaringan)",
-    situasi: "Sebagian besar siswa kelas XII masih bingung menentukan pilihan setelah lulus dari SMKN 3 Makassar, apakah ingin langsung bekerja, melanjutkan kuliah, atau berwirausaha.",
-    aksi: "Memberikan layanan Bimbingan Klasikal menggunakan metode Problem Based Learning (PBL) berbantuan media interaktif (Canva & Mentimeter) untuk memetakan minat dan bakat karir.",
-    refleksi: "Antusiasme siswa sangat tinggi. Penggunaan media digital sangat efektif untuk siswa jurusan TKJ. Evaluasi proses menunjukkan 85% siswa mulai memiliki pandangan yang jelas mengenai roadmap karir mereka.",
-    artefak: [
-      { icon: <FileText size={18}/>, name: "Modul/RPL Bimbingan Klasikal" },
-      { icon: <Video size={18}/>, name: "Video Pelaksanaan Layanan (15 Menit)" },
-      { icon: <FileText size={18}/>, name: "Hasil LKPD & Evaluasi" }
-    ]
-  },
-  {
-    id: 2,
-    title: "Siklus 2: Konseling Individual",
-    theme: "Mengatasi Prokrastinasi Akademik (Tugas Prakerin)",
-    date: "Minggu ke-4 & 5",
-    sasaran: "Siswa Kelas XI Perhotelan (Inisial: A.R)",
-    situasi: "Konseli mengalami penurunan motivasi belajar yang drastis pasca-Prakerin (Praktik Kerja Industri) dan sering menunda-nunda pengumpulan laporan prakerin hingga terancam tidak naik kelas.",
-    aksi: "Melaksanakan sesi Konseling Individual dengan pendekatan Solution-Focused Brief Therapy (SFBT). Fokus pada pencarian solusi dan pengecualian (exception) saat konseli berhasil disiplin, serta menyusun 'Miracle Question'.",
-    refleksi: "Pendekatan SFBT sangat cocok untuk siswa SMK yang membutuhkan solusi praktis dan cepat. Konseli berhasil membuat jadwal harian baru dan mengumpulkan laporan prakerin secara bertahap dalam waktu 2 minggu.",
-    artefak: [
-      { icon: <FileText size={18}/>, name: "Laporan Konseling (Identitas Disamarkan)" },
-      { icon: <FileText size={18}/>, name: "Verbatim Konseling Individual" },
-      { icon: <FileText size={18}/>, name: "Lembar Komitmen Konseli" }
-    ]
-  },
-  {
-    id: 3,
-    title: "Siklus 3: Bimbingan Kelompok",
-    theme: "Manajemen Emosi dan Etika Komunikasi Interpersonal",
-    date: "Minggu ke-6 & 7",
-    sasaran: "8 Siswa Kelas X Tata Boga",
-    situasi: "Terdapat dinamika kelompok yang kurang sehat di kelas, ditandai dengan seringnya terjadi miskomunikasi dan konflik kecil antar teman sebaya saat praktik di dapur/laboratorium.",
-    aksi: "Melakukan layanan Bimbingan Kelompok dengan teknik Sosiodrama. Anggota kelompok memainkan peran terkait situasi konflik di dapur praktik dan cara menyelesaikannya dengan komunikasi asertif.",
-    refleksi: "Teknik sosiodrama berhasil mencairkan suasana. Anggota kelompok menyadari pentingnya mengelola emosi (stress release) saat bekerja di bawah tekanan (seperti lingkungan dapur profesional). Solidaritas kelompok meningkat.",
-    artefak: [
-      { icon: <FileText size={18}/>, name: "RPL Bimbingan Kelompok" },
-      { icon: <Video size={18}/>, name: "Video Cuplikan Sosiodrama" },
-      { icon: <FileText size={18}/>, name: "Lembar Evaluasi Hasil (BMB3)" }
-    ]
-  }
-];
-
-export default function PortfolioApp() {
-  const [activeCycle, setActiveCycle] = useState(1);
-
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
-      
-      {/* NAVBAR */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center gap-2">
-              <Award className="text-blue-600" size={28} />
-              <span className="font-bold text-xl tracking-tight text-slate-900">E-Portofolio PPG</span>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-user-graduate text-primary text-2xl mr-2"></i>
+                    <span class="font-bold text-xl text-slate-800 tracking-tight">Portofolio<span class="text-primary">BK</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#beranda" class="text-slate-600 hover:text-primary font-medium transition">Beranda</a>
+                    <a href="#profil" class="text-slate-600 hover:text-primary font-medium transition">Profil</a>
+                    <a href="#siklus" class="text-slate-600 hover:text-primary font-medium transition">Laporan 3 Siklus</a>
+                    <a href="#galeri" class="text-slate-600 hover:text-primary font-medium transition">Galeri</a>
+                    <a href="#kontak" class="bg-primary hover:bg-secondary text-white px-4 py-2 rounded-lg font-medium transition shadow-sm">Hubungi Saya</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
-            <div className="hidden md:flex space-x-8 text-sm font-medium">
-              <a href="#beranda" className="text-slate-600 hover:text-blue-600 transition-colors">Beranda</a>
-              <a href="#profil" className="text-slate-600 hover:text-blue-600 transition-colors">Profil</a>
-              <a href="#siklus" className="text-slate-600 hover:text-blue-600 transition-colors">Laporan Siklus</a>
-              <a href="#galeri" className="text-slate-600 hover:text-blue-600 transition-colors">Galeri</a>
-            </div>
-          </div>
         </div>
-      </nav>
-
-      {/* HERO SECTION */}
-      <header id="beranda" className="relative pt-24 pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 -z-10" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 -z-10" />
-        
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold mb-6 shadow-sm">
-            <School size={16} />
-            Praktik Pengalaman Lapangan (PPL)
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
-            E-Portofolio Bimbingan <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-              dan Konseling
-            </span>
-          </h1>
-          <p className="max-w-2xl mx-auto text-lg text-slate-600 mb-10 leading-relaxed">
-            Kumpulan artefak, refleksi, dan dokumentasi pelaksanaan praktik layanan Bimbingan dan Konseling dalam rangka Pendidikan Profesi Guru (PPG).
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-xl shadow-md border border-slate-100">
-              <MapPin className="text-red-500" size={20} />
-              <span className="font-semibold text-slate-700">SMKN 3 Makassar</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-xl shadow-md border border-slate-100">
-              <Calendar className="text-indigo-500" size={20} />
-              <span className="font-semibold text-slate-700">Tahun Ajaran 2025/2026</span>
-            </div>
-          </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 pb-4">
+            <a href="#beranda" class="block px-4 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary">Beranda</a>
+            <a href="#profil" class="block px-4 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary">Profil</a>
+            <a href="#siklus" class="block px-4 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary">Laporan 3 Siklus</a>
+            <a href="#galeri" class="block px-4 py-2 text-slate-600 hover:bg-slate-50 hover:text-primary">Galeri</a>
         </div>
-      </header>
+    </nav>
 
-      {/* PROFIL SECTION */}
-      <section id="profil" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12 items-center">
-            <div className="flex justify-center">
-              <div className="relative w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white transform -rotate-3 transition-transform hover:rotate-0 duration-300">
-                {/* Fallback image */}
-                <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
-                  <User size={80} className="text-slate-400" />
+    <!-- Hero Section -->
+    <section id="beranda" class="pt-28 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-10">
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-primary font-semibold text-sm mb-4">PPG Dalam Jabatan / Prajabatan</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+                    E-Portfolio Praktik Pengalaman Lapangan
+                </h1>
+                <h2 class="text-2xl font-bold text-primary mb-4">Bimbingan dan Konseling</h2>
+                <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                    Kumpulan artefak, perangkat layanan, dokumentasi, dan refleksi selama melaksanakan PPL PPG di sekolah mitra.
+                </p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                    <a href="#siklus" class="bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg font-medium transition shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                        <i class="fas fa-folder-open"></i> Lihat Siklus PPL
+                    </a>
+                    <a href="#profil" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-6 py-3 rounded-lg font-medium transition shadow-sm flex items-center gap-2">
+                        <i class="fas fa-user"></i> Profil Mahasiswa
+                    </a>
                 </div>
-                <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" 
-                  alt="Foto Mahasiswa" 
-                  className="absolute inset-0 w-full h-full object-cover z-10"
-                />
-              </div>
             </div>
-            <div className="md:col-span-2">
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">Profil Mahasiswa</h2>
-              <div className="h-1 w-20 bg-blue-600 rounded-full mb-6"></div>
-              <h3 className="text-xl font-semibold text-slate-800 mb-4">Nama Mahasiswa PPG, S.Pd.</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed text-justify">
-                Saya adalah mahasiswa Pendidikan Profesi Guru (PPG) program studi Bimbingan dan Konseling. 
-                Selama pelaksanaan PPL di <strong>SMKN 3 Makassar</strong>, saya berfokus pada pengembangan 
-                karakter, kesiapan kerja, dan kesejahteraan psikologis siswa vokasi. Pendekatan yang 
-                saya gunakan mengedepankan asas empati, solusi-fokus, dan pemanfaatan media digital 
-                yang relevan dengan generasi Z di lingkungan sekolah menengah kejuruan.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                  <div className="bg-blue-100 p-2 rounded-md"><BookOpen className="text-blue-600" size={20}/></div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium">LPTK</p>
-                    <p className="text-sm font-semibold text-slate-800">Universitas Negeri Makassar</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                  <div className="bg-indigo-100 p-2 rounded-md"><School className="text-indigo-600" size={20}/></div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium">Sekolah Mitra</p>
-                    <p className="text-sm font-semibold text-slate-800">SMKN 3 Makassar</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                  <div className="bg-emerald-100 p-2 rounded-md"><GraduationCap className="text-emerald-600" size={20}/></div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium">Dosen Pembimbing Lapangan</p>
-                    <p className="text-sm font-semibold text-slate-800">[Nama DPL, S.Pd., M.Pd.]</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
-                  <div className="bg-amber-100 p-2 rounded-md"><UserCheck className="text-amber-600" size={20}/></div>
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium">Guru Pamong</p>
-                    <p className="text-sm font-semibold text-slate-800">[Nama Guru Pamong, S.Pd., M.Pd.]</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SIKLUS PPL SECTION */}
-      <section id="siklus" className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Laporan Pelaksanaan Siklus</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Dokumentasi pelaksanaan praktik layanan Bimbingan dan Konseling yang dibagi menjadi 3 siklus dengan fokus layanan yang berbeda.
-            </p>
-          </div>
-
-          {/* Tab Navigation */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {cycleData.map((cycle) => (
-              <button
-                key={cycle.id}
-                onClick={() => setActiveCycle(cycle.id)}
-                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm ${
-                  activeCycle === cycle.id
-                    ? 'bg-blue-600 text-white shadow-blue-200'
-                    : 'bg-white text-slate-600 hover:bg-blue-50 border border-slate-200'
-                }`}
-              >
-                {cycle.title}
-              </button>
-            ))}
-          </div>
-
-          {/* Tab Content */}
-          <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
-            {cycleData.map((cycle) => (
-              <div 
-                key={cycle.id} 
-                className={`transition-opacity duration-500 p-8 md:p-10 ${activeCycle === cycle.id ? 'block animate-fade-in' : 'hidden'}`}
-              >
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 pb-6 border-b border-slate-100">
-                  <div>
-                    <h3 className="text-2xl font-bold text-slate-900 mb-2">{cycle.theme}</h3>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 font-medium">
-                      <span className="flex items-center gap-1.5 bg-slate-100 px-3 py-1 rounded-md">
-                        <Calendar size={16} className="text-slate-500" /> {cycle.date}
-                      </span>
-                      <span className="flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-md">
-                        <Users size={16} /> {cycle.sasaran}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-5xl font-black text-slate-100 select-none">
-                    0{cycle.id}
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-10">
-                  <div className="space-y-8">
-                    {/* Situasi / Permasalahan */}
-                    <div>
-                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center">1</div>
-                        Kondisi / Situasi
-                      </h4>
-                      <p className="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 text-justify">
-                        {cycle.situasi}
-                      </p>
-                    </div>
-
-                    {/* Aksi / Pelaksanaan */}
-                    <div>
-                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">2</div>
-                        Aksi & Layanan
-                      </h4>
-                      <p className="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 text-justify">
-                        {cycle.aksi}
-                      </p>
-                    </div>
-
-                    {/* Refleksi / Hasil */}
-                    <div>
-                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
-                        <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center">3</div>
-                        Refleksi & Evaluasi
-                      </h4>
-                      <p className="text-slate-600 leading-relaxed bg-green-50/50 p-4 rounded-xl border border-green-100 text-justify">
-                        {cycle.refleksi}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Artefak Column */}
-                  <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-100 h-fit">
-                    <h4 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-                      <Award className="text-blue-600" />
-                      Artefak & Bukti Fisik
-                    </h4>
-                    <div className="space-y-4">
-                      {cycle.artefak.map((artefak, idx) => (
-                        <div key={idx} className="group flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-md transition-all cursor-pointer">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                              {artefak.icon}
-                            </div>
-                            <span className="font-medium text-slate-700 group-hover:text-blue-700 transition-colors">
-                              {artefak.name}
-                            </span>
-                          </div>
-                          <ChevronRight size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+            <div class="w-full md:w-1/2 flex justify-center">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <div class="absolute inset-0 bg-primary rounded-full opacity-10 animate-pulse"></div>
+                    <img src="https://images.unsplash.com/photo-1544717302-de2939b7ef71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Guru BK" class="w-full h-full object-cover rounded-full shadow-2xl border-4 border-white relative z-10">
+                    <!-- Badge -->
+                    <div class="absolute bottom-4 right-4 bg-white p-3 rounded-xl shadow-lg border border-slate-100 z-20 flex items-center gap-3">
+                        <div class="bg-green-100 p-2 rounded-full text-green-600">
+                            <i class="fas fa-check-circle"></i>
                         </div>
-                      ))}
+                        <div>
+                            <p class="text-xs text-slate-500 font-medium">Status PPL</p>
+                            <p class="text-sm font-bold text-slate-800">Selesai 3 Siklus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profil" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Profil Mahasiswa</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600">Informasi mengenai pelaksana Praktik Pengalaman Lapangan (PPL).</p>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl shadow-sm border border-slate-100 p-8 md:p-12 flex flex-col md:flex-row gap-10 items-center">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Foto Profil" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-2xl shadow-md">
+                </div>
+                <div class="w-full md:w-2/3">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-2">[Nama Lengkap Anda, S.Pd.]</h3>
+                    <p class="text-primary font-medium mb-6">Mahasiswa PPG Bimbingan dan Konseling</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-slate-700">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-id-card text-slate-400 mt-1"></i>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">NIM / No. Peserta</p>
+                                <p class="font-medium">1234567890 / 2015xxxxxxx</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-university text-slate-400 mt-1"></i>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">LPTK Penyelenggara</p>
+                                <p class="font-medium">Universitas Negeri [Nama Kampus]</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-school text-slate-400 mt-1"></i>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Sekolah Mitra (PPL)</p>
+                                <p class="font-medium">SMP/SMA Negeri [Nama Sekolah]</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-chalkboard-teacher text-slate-400 mt-1"></i>
+                            <div>
+                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Dosen Pembimbing Lapangan</p>
+                                <p class="font-medium">[Nama DPL Lengkap, Gelar]</p>
+                                <p class="text-sm text-slate-500 mb-2">NIP. [Masukkan NIP DPL]</p>
+                                
+                                <p class="text-xs text-slate-500 font-medium uppercase tracking-wider border-t border-slate-100 pt-2 mt-1">Guru Pamong</p>
+                                <p class="font-medium">[Nama Guru Pamong, Gelar]</p>
+                                <p class="text-sm text-slate-500">NIP. [Masukkan NIP Guru Pamong]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Siklus Section (Tabs) -->
+    <section id="siklus" class="py-16 md:py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Laporan Pelaksanaan 3 Siklus</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600">Dokumentasi perangkat, pelaksanaan, dan evaluasi layanan Bimbingan dan Konseling pada setiap siklus PPL.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap justify-center mb-8 gap-2 bg-white p-2 rounded-xl shadow-sm border border-slate-100 max-w-fit mx-auto">
+                <button onclick="openTab('siklus1')" id="btn-siklus1" class="tab-btn px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 bg-primary text-white shadow-md">
+                    Siklus 1
+                </button>
+                <button onclick="openTab('siklus2')" id="btn-siklus2" class="tab-btn px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 text-slate-600 hover:bg-slate-100">
+                    Siklus 2
+                </button>
+                <button onclick="openTab('siklus3')" id="btn-siklus3" class="tab-btn px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition-all duration-300 text-slate-600 hover:bg-slate-100">
+                    Siklus 3
+                </button>
+            </div>
+
+            <!-- Tab Content: Siklus 1 -->
+            <div id="siklus1" class="tab-content active">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-blue-600 text-white p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold">Siklus 1: Bimbingan Klasikal</h3>
+                            <p class="text-blue-100 mt-1">Topik: Manajemen Waktu / Pencegahan Perundungan (Bullying)</p>
+                        </div>
+                        <div class="bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+                            <i class="fas fa-users text-xl mr-2"></i> Kelas X-A
+                        </div>
                     </div>
                     
-                    <div className="mt-8 p-4 bg-yellow-50 rounded-xl border border-yellow-100 flex items-start gap-3">
-                      <CheckCircle className="text-yellow-600 shrink-0 mt-0.5" size={20} />
-                      <p className="text-sm text-yellow-800">
-                        File artefak lengkap telah diunggah ke dalam sistem LMS / Google Drive dan disetujui oleh Guru Pamong dan Dosen Pembimbing Lapangan.
-                      </p>
+                    <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Perencanaan -->
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Perencanaan (Plan)</h4>
+                            <p class="text-sm text-slate-600 mb-4">Penyusunan Rencana Pelaksanaan Layanan (RPL), materi, media, LKPD, dan instrumen evaluasi berdasarkan AKPD.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-2"></i> Hasil Asesmen (AKPD)</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-2"></i> RPL Bimbingan Klasikal</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-2"></i> Media Interaktif (Canva/PPT)</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-primary text-primary hover:bg-blue-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Perangkat
+                            </a>
+                        </div>
+
+                        <!-- Pelaksanaan -->
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Pelaksanaan (Do)</h4>
+                            <p class="text-sm text-slate-600 mb-4">Implementasi layanan klasikal di kelas, direkam secara utuh dan diedit menjadi video berdurasi 15-20 menit.</p>
+                            
+                            <div class="relative rounded-lg overflow-hidden mb-4 group cursor-pointer bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Thumbnail Video" class="w-full h-32 object-cover group-hover:scale-105 transition duration-300 opacity-80">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:bg-red-700 transition">
+                                        <i class="fas fa-play ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="#" class="block w-full text-center bg-white border border-primary text-primary hover:bg-blue-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fab fa-youtube mr-1"></i> Tonton Video PPL
+                            </a>
+                        </div>
+
+                        <!-- Evaluasi -->
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Refleksi & RTL (See)</h4>
+                            <p class="text-sm text-slate-600 mb-4">Analisis hasil evaluasi proses dan hasil, jurnal refleksi mengajar, serta Rencana Tindak Lanjut (RTL).</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-chart-bar text-primary mr-2"></i> Hasil Evaluasi Proses</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-chart-pie text-primary mr-2"></i> Hasil Evaluasi Hasil</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-book-open text-primary mr-2"></i> Jurnal Refleksi Guru</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-primary text-primary hover:bg-blue-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Laporan
+                            </a>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+            </div>
+
+            <!-- Tab Content: Siklus 2 -->
+            <div id="siklus2" class="tab-content">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-teal-600 text-white p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold">Siklus 2: Konseling Individual</h3>
+                            <p class="text-teal-100 mt-1">Pendekatan: CBT / Behavior / SFBT (Mengatasi Prokrastinasi Akademik)</p>
+                        </div>
+                        <div class="bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+                            <i class="fas fa-user text-xl mr-2"></i> Konseli: Siswa Kls XI
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Tahap Persiapan</h4>
+                            <p class="text-sm text-slate-600 mb-4">Identifikasi masalah (pengumpulan data/sosiometri/wawancara) dan penyusunan RPL Konseling Individual.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-teal-500 mr-2"></i> Laporan Identifikasi Kasus</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-teal-500 mr-2"></i> RPL Konseling Individual</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-teal-500 mr-2"></i> Instrumen Evaluasi Konseling</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-teal-600 text-teal-600 hover:bg-teal-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Perangkat
+                            </a>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Pelaksanaan Konseling</h4>
+                            <p class="text-sm text-slate-600 mb-4">Proses konseling dengan penerapan teknik spesifik (misal: desensitisasi sistematis / miracle question).</p>
+                            
+                            <div class="relative rounded-lg overflow-hidden mb-4 group cursor-pointer bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Thumbnail Video" class="w-full h-32 object-cover group-hover:scale-105 transition duration-300 opacity-80 blur-[1px]">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white shadow-lg group-hover:bg-teal-700 transition">
+                                        <i class="fas fa-play ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">Privasi Terjaga</div>
+                            </div>
+                            
+                            <a href="#" class="block w-full text-center bg-white border border-teal-600 text-teal-600 hover:bg-teal-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fab fa-youtube mr-1"></i> Tonton Video PPL
+                            </a>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Analisis & Tindak Lanjut</h4>
+                            <p class="text-sm text-slate-600 mb-4">Verbatim konseling, evaluasi kepuasan konseli (LAISEG, LAIJAPEN), dan rencana tindak lanjut / referral.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-file-word text-teal-600 mr-2"></i> Transkrip Verbatim</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-chart-bar text-teal-600 mr-2"></i> Lembar Evaluasi & Kepuasan</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-arrow-right text-teal-600 mr-2"></i> Rencana Tindak Lanjut</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-teal-600 text-teal-600 hover:bg-teal-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Laporan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Siklus 3 -->
+            <div id="siklus3" class="tab-content">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-orange-500 text-white p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="text-2xl font-bold">Siklus 3: Bimbingan Kelompok / Konseling Kelompok</h3>
+                            <p class="text-orange-100 mt-1">Topik: Perencanaan Karir Studi Lanjut / Dinamika Kelompok</p>
+                        </div>
+                        <div class="bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm">
+                            <i class="fas fa-users-cog text-xl mr-2"></i> Anggota: 8-10 Siswa
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Pembentukan Kelompok</h4>
+                            <p class="text-sm text-slate-600 mb-4">Identifikasi anggota kelompok berdasarkan kebutuhan umum (BKP) atau masalah homogen (KKP). Penyusunan RPL Kelompok.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-orange-500 mr-2"></i> Sosiogram / Data Dasar</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-orange-500 mr-2"></i> RPL Bimbingan/Konseling Kel.</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-orange-500 mr-2"></i> Skenario Permainan/Ice Breaking</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-orange-500 text-orange-500 hover:bg-orange-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Perangkat
+                            </a>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-people-arrows"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Dinamika Kelompok</h4>
+                            <p class="text-sm text-slate-600 mb-4">Pelaksanaan tahapan kelompok: Pembentukan, Peralihan, Kegiatan, dan Pengakhiran.</p>
+                            
+                            <div class="relative rounded-lg overflow-hidden mb-4 group cursor-pointer bg-slate-200">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Thumbnail Video" class="w-full h-32 object-cover group-hover:scale-105 transition duration-300 opacity-80">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white shadow-lg group-hover:bg-orange-600 transition">
+                                        <i class="fas fa-play ml-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="#" class="block w-full text-center bg-white border border-orange-500 text-orange-500 hover:bg-orange-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fab fa-youtube mr-1"></i> Tonton Video PPL
+                            </a>
+                        </div>
+
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-md transition">
+                            <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-800 mb-2">Evaluasi & BMB3</h4>
+                            <p class="text-sm text-slate-600 mb-4">Penilaian proses dinamika kelompok, penilaian hasil BMB3 (Berpikir, Merasa, Bersikap, Bertindak, Bertanggungjawab).</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-chart-line text-orange-500 mr-2"></i> Hasil Evaluasi Proses</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-clipboard-list text-orange-500 mr-2"></i> Hasil Evaluasi BMB3</li>
+                                <li class="flex items-center text-sm text-slate-700"><i class="fas fa-star text-orange-500 mr-2"></i> Refleksi Pelaksanaan PPL 3</li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-white border border-orange-500 text-orange-500 hover:bg-orange-50 py-2 rounded-md font-medium transition text-sm">
+                                <i class="fas fa-download mr-1"></i> Unduh Laporan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </section>
+    </section>
 
-      {/* GALERI & DOKUMENTASI */}
-      <section id="galeri" className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Galeri Dokumentasi PPL</h2>
-            <p className="text-slate-600">Momen kegiatan selama pelaksanaan Praktik Pengalaman Lapangan di SMKN 3 Makassar.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {/* Foto 1 */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
-              <img 
-                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=600" 
-                alt="Bimbingan Klasikal" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 1</span></div>
-                <p className="text-white font-medium">Suasana Layanan Bimbingan Klasikal Kelas XII</p>
-              </div>
+    <!-- Galeri Artefak -->
+    <section id="galeri" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Galeri Dokumentasi & Artefak</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600">Beberapa momen penting dan produk (media/karya siswa) selama masa Praktik Pengalaman Lapangan (PPL).</p>
             </div>
 
-            {/* Foto 2 */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
-              <img 
-                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600" 
-                alt="Konseling Individual" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 2</span></div>
-                <p className="text-white font-medium">Pendekatan SFBT di Ruang BK</p>
-              </div>
-            </div>
-
-            {/* Foto 3 */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
-              <img 
-                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600" 
-                alt="Bimbingan Kelompok" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 3</span></div>
-                <p className="text-white font-medium">Sosiodrama Bimbingan Kelompok Siswa Tata Boga</p>
-              </div>
+            <!-- Grid Foto -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="group relative overflow-hidden rounded-xl bg-slate-200 aspect-square">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Kegiatan Klasikal" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                        <p class="text-white font-medium text-sm">Layanan Klasikal di Kelas</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl bg-slate-200 aspect-square">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bimbingan Kelompok" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                        <p class="text-white font-medium text-sm">Dinamika Kelompok</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl bg-slate-200 aspect-square">
+                    <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ujian" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                        <p class="text-white font-medium text-sm">Pengisian AKPD</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-xl bg-slate-200 aspect-square">
+                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Diskusi Guru" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                        <p class="text-white font-medium text-sm">Koordinasi dengan Guru Pamong</p>
+                    </div>
+                </div>
             </div>
             
-            {/* Foto 4 */}
-            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer sm:col-span-2 md:col-span-3">
-               <img 
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200" 
-                alt="Foto Bersama" 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                style={{ objectPosition: 'center 30%' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                 <p className="text-white font-bold text-lg">Kegiatan Bersama Guru Pamong dan Staf SMKN 3 Makassar</p>
-              </div>
+            <div class="mt-8 text-center">
+                <a href="#" class="inline-flex items-center justify-center gap-2 text-primary font-medium hover:text-secondary transition">
+                    Lihat Galeri Lengkap <i class="fas fa-arrow-right text-sm"></i>
+                </a>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="text-blue-500" size={24} />
-                <span className="font-bold text-xl text-white">PPG BK</span>
-              </div>
-              <p className="text-sm text-slate-400 mb-4 leading-relaxed">
-                E-Portofolio ini disusun sebagai salah satu luaran (output) wajib pelaksanaan Praktik Pengalaman Lapangan (PPL) Pendidikan Profesi Guru.
-              </p>
+    <!-- Footer & Contact -->
+    <footer id="kontak" class="bg-slate-900 text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-user-graduate text-accent text-2xl mr-2"></i>
+                        <span class="font-bold text-xl tracking-tight">Portofolio<span class="text-accent">BK</span></span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Website ini merupakan bentuk rekam jejak digital (E-Portfolio) pelaksanaan Praktik Pengalaman Lapangan (PPL) Mahasiswa PPG Bimbingan dan Konseling.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4 border-b border-slate-700 pb-2 inline-block">Tautan Cepat</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#beranda" class="text-slate-400 hover:text-accent text-sm transition"><i class="fas fa-chevron-right text-xs mr-2"></i> Beranda</a></li>
+                        <li><a href="#profil" class="text-slate-400 hover:text-accent text-sm transition"><i class="fas fa-chevron-right text-xs mr-2"></i> Profil Mahasiswa</a></li>
+                        <li><a href="#siklus" class="text-slate-400 hover:text-accent text-sm transition"><i class="fas fa-chevron-right text-xs mr-2"></i> Laporan 3 Siklus</a></li>
+                        <li><a href="#galeri" class="text-slate-400 hover:text-accent text-sm transition"><i class="fas fa-chevron-right text-xs mr-2"></i> Galeri Dokumentasi</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4 border-b border-slate-700 pb-2 inline-block">Kontak</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-slate-400 text-sm">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>email.mahasiswa@domain.com</span>
+                        </li>
+                        <li class="flex items-start text-slate-400 text-sm">
+                            <i class="fas fa-phone mt-1 mr-3 text-accent"></i>
+                            <span>+62 812-3456-7890</span>
+                        </li>
+                        <li class="flex items-start text-slate-400 text-sm">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Fakultas Ilmu Pendidikan, Universitas [Nama], [Kota]</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
             
-            <div>
-              <h4 className="text-white font-semibold mb-4">Lokasi PPL</h4>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2">
-                  <School size={18} className="text-slate-400 shrink-0 mt-0.5" />
-                  <span>SMKN 3 Makassar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <MapPin size={18} className="text-slate-400 shrink-0 mt-0.5" />
-                  <span>Jl. Bonto Biraeng No.12, Makassar, Sulawesi Selatan</span>
-                </li>
-              </ul>
+            <div class="mt-12 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
+                <p>&copy; 2024 E-Portfolio PPG Bimbingan dan Konseling. Dibuat dengan <i class="fas fa-heart text-red-500 mx-1"></i> untuk Pendidikan Indonesia.</p>
             </div>
-
-            <div>
-              <h4 className="text-white font-semibold mb-4">Kontak</h4>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-center gap-2">
-                  <Mail size={18} className="text-slate-400" />
-                  <span>mahasiswa.ppg@univ.edu</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone size={18} className="text-slate-400" />
-                  <span>+62 812-3456-7890</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="mt-12 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
-            <p>&copy; {new Date().getFullYear()} E-Portofolio PPG BK. Dibuat untuk keperluan akademik.</p>
-          </div>
         </div>
-      </footer>
+    </footer>
 
-    </div>
-  );
-}
+    <!-- JavaScript untuk interaksi Tab dan Mobile Menu -->
+    <script>
+        // Fungsi Tab 3 Siklus
+        function openTab(tabName) {
+            // Sembunyikan semua konten tab
+            var i, tabContent, tabBtns;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            
+            // Reset style semua tombol
+            tabBtns = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("bg-primary", "text-white", "shadow-md");
+                tabBtns[i].classList.add("text-slate-600", "hover:bg-slate-100");
+                
+                // Tambahan: Reset warna khusus jika sebelumnya diklik (teal/orange dll)
+                tabBtns[i].classList.remove("bg-teal-600", "bg-orange-500");
+            }
+            
+            // Tampilkan konten yang dipilih
+            document.getElementById(tabName).classList.add("active");
+            
+            // Ubah style tombol yang aktif sesuai warnanya
+            var activeBtn = document.getElementById("btn-" + tabName);
+            activeBtn.classList.remove("text-slate-600", "hover:bg-slate-100");
+            
+            if(tabName === 'siklus1') {
+                activeBtn.classList.add("bg-primary", "text-white", "shadow-md");
+            } else if (tabName === 'siklus2') {
+                activeBtn.classList.add("bg-teal-600", "text-white", "shadow-md");
+            } else if (tabName === 'siklus3') {
+                activeBtn.classList.add("bg-orange-500", "text-white", "shadow-md");
+            }
+        }
+
+        // Fungsi Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Tutup menu mobile saat link diklik
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
