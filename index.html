@@ -1,661 +1,402 @@
-<!doctype html>
-<html lang="id" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Portfolio - Zwarida Suci Zulfatia</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-  <style>
-    html, body { height: 100%; margin: 0; }
-    * { box-sizing: border-box; }
-    .font-heading { font-family: 'Playfair Display', Georgia, serif; }
-    .font-body { font-family: 'Source Sans 3', sans-serif; }
-    .hero-pattern {
-      background-image: radial-gradient(circle at 20% 50%, rgba(16,69,72,0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(180,136,74,0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 60% 80%, rgba(16,69,72,0.08) 0%, transparent 45%);
-    }
-    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(16,69,72,0.12); }
-    .fade-in { animation: fadeIn 0.8s ease forwards; opacity: 0; }
-    .fade-in-delay-1 { animation-delay: 0.15s; }
-    .fade-in-delay-2 { animation-delay: 0.3s; }
-    .fade-in-delay-3 { animation-delay: 0.45s; }
-    .fade-in-delay-4 { animation-delay: 0.6s; }
-    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(18px); } }
-    .section-divider { width: 60px; height: 3px; background: linear-gradient(90deg, #104548, #b4884a); border-radius: 2px; }
-    .nav-link { position: relative; }
-    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #b4884a; transition: width 0.3s; }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .tab-btn { transition: all 0.3s ease; }
-    .tab-btn.active { background: #104548; color: #fff; }
-    .cycle-card { border-left: 4px solid #b4884a; }
-    .score-bar { height: 8px; border-radius: 4px; background: #e8e0d4; overflow: hidden; }
-    .score-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #104548, #1a6b6f); transition: width 1s ease; }
-    @media print {
-      .no-print { display: none !important; }
-      .page-break { page-break-before: always; }
-    }
-  </style>
-  <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
- </head>
- <body class="h-full font-body" style="background-color: #faf8f4; color: #2c2c2c;">
-  <div id="app-wrapper" class="h-full w-full overflow-auto">
-   <!-- Navigation -->
-   <nav class="sticky top-0 z-50 no-print" style="background: rgba(250,248,244,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(16,69,72,0.08);">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-     <div class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: #104548;">
-       <span class="text-white font-heading font-bold text-sm">ZS</span>
-      </div><span class="font-heading font-semibold text-sm" style="color: #104548;">E-Portfolio</span>
-     </div>
-     <div class="flex gap-5 text-sm font-medium" style="color: #5a5a5a;">
-      <a href="#profil" class="nav-link hover:text-[#104548] transition-colors hidden sm:block">Profil</a> <a href="#artefak" class="nav-link hover:text-[#104548] transition-colors hidden sm:block">Artefak</a> <a href="#penilaian" class="nav-link hover:text-[#104548] transition-colors hidden sm:block">Penilaian</a> <a href="#model-guru" class="nav-link hover:text-[#104548] transition-colors hidden sm:block">Model Guru</a>
-     </div>
-    </div>
-   </nav><!-- Hero Section -->
-   <header id="profil" class="hero-pattern fade-in" style="padding: 60px 16px 50px;">
-    <div class="max-w-5xl mx-auto">
-     <div class="flex flex-col md:flex-row items-center gap-8">
-      <!-- Avatar -->
-      <div class="flex-shrink-0">
-       <div class="w-36 h-36 rounded-full flex items-center justify-center relative" style="background: linear-gradient(135deg, #104548, #1a6b6f); box-shadow: 0 8px 32px rgba(16,69,72,0.25);">
-        <span class="font-heading text-white text-4xl font-bold">ZS</span>
-        <div class="absolute -bottom-1 -right-1 w-10 h-10 rounded-full flex items-center justify-center" style="background: #b4884a; box-shadow: 0 2px 8px rgba(180,136,74,0.4);">
-         <i data-lucide="graduation-cap" style="width:20px;height:20px;color:#fff;"></i>
-        </div>
-       </div>
-      </div><!-- Info -->
-      <div class="text-center md:text-left flex-1">
-       <p class="text-sm font-semibold tracking-widest uppercase mb-2" style="color: #b4884a;">E-Portfolio 1 — Refleksi Awal</p>
-       <h1 id="heroName" class="font-heading text-3xl md:text-4xl font-bold mb-2" style="color: #104548;">Zwarida Suci Zulfatia</h1>
-       <p class="text-lg mb-3" style="color: #5a5a5a;">Bidang Studi: <strong style="color:#104548;">Bimbingan dan Konseling</strong></p>
-       <div class="flex flex-wrap gap-3 justify-center md:justify-start text-sm" style="color: #6b6b6b;">
-        <span class="flex items-center gap-1.5 px-3 py-1 rounded-full" style="background: rgba(16,69,72,0.07);"> <i data-lucide="map-pin" style="width:14px;height:14px;color:#104548;"></i> Polewali Mandar </span> <span class="flex items-center gap-1.5 px-3 py-1 rounded-full" style="background: rgba(180,136,74,0.1);"> <i data-lucide="user-check" style="width:14px;height:14px;color:#b4884a;"></i> Guru Pamong: Nasratul Khumaerah, S.Pd., M.Pd., Gr </span> <span class="flex items-center gap-1.5 px-3 py-1 rounded-full" style="background: rgba(16,69,72,0.07);"> <i data-lucide="book-open" style="width:14px;height:14px;color:#104548;"></i> DPL: M. Amirullah, S.Pd., M.Pd </span>
-       </div>
-      </div>
-     </div>
-    </div>
-   </header><!-- Asal Daerah -->
-   <section class="fade-in fade-in-delay-1" style="padding: 40px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="rounded-2xl p-6 md:p-8 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-      <div class="flex items-center gap-3 mb-4">
-       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-        <i data-lucide="compass" style="width:20px;height:20px;color:#b4884a;"></i>
-       </div>
-       <h2 class="font-heading text-xl font-bold" style="color: #104548;">Asal Daerah — Polewali Mandar</h2>
-      </div>
-      <p class="leading-relaxed" style="color: #4a4a4a;">Saya berasal dari <strong style="color:#104548;">Polewali Mandar</strong>, sebuah kabupaten yang terletak di Provinsi Sulawesi Barat. Daerah ini dikenal dengan keindahan alamnya yang memukau, mulai dari pantai-pantai yang mempesona hingga pegunungan yang asri. Polewali Mandar juga kaya akan budaya dan tradisi, khususnya budaya <em>Mandar</em> yang menjunjung tinggi nilai-nilai kearifan lokal, gotong royong, dan penghormatan terhadap sesama. Keunikan ini menjadi pondasi kuat dalam membentuk karakter saya sebagai individu yang peduli, empatik, dan berkomitmen terhadap pelayanan kepada orang lain.</p>
-     </div>
-    </div>
-   </section><!-- Inspirasi & Tujuan -->
-   <section class="fade-in fade-in-delay-2" style="padding: 24px 16px 0;">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-5">
-     <!-- Inspirasi -->
-     <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-      <div class="flex items-center gap-3 mb-4">
-       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(16,69,72,0.08);">
-        <i data-lucide="sparkles" style="width:20px;height:20px;color:#104548;"></i>
-       </div>
-       <h2 class="font-heading text-lg font-bold" style="color: #104548;">Inspirasi</h2>
-      </div>
-      <p class="leading-relaxed text-sm" style="color: #4a4a4a;">Inspirasi saya untuk menjadi guru profesional berawal dari pengalaman ketika menempuh pendidikan di Sekolah Menengah Atas. Pada masa itu, saya sangat terinspirasi oleh salah satu guru Bimbingan dan Konseling yang memberikan perhatian, arahan, serta dukungan kepada peserta didik dengan penuh kesabaran dan dedikasi. Beliau menunjukkan bahwa seorang guru Bimbingan dan Konseling memiliki peran penting dalam membantu peserta didik memahami diri, mengatasi permasalahan, serta mengembangkan potensi yang dimiliki secara optimal. Pengalaman tersebut menumbuhkan motivasi kuat dalam diri saya untuk mengikuti jejak beliau.</p>
-     </div><!-- Tujuan -->
-     <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-      <div class="flex items-center gap-3 mb-4">
-       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-        <i data-lucide="target" style="width:20px;height:20px;color:#b4884a;"></i>
-       </div>
-       <h2 class="font-heading text-lg font-bold" style="color: #104548;">Tujuan</h2>
-      </div>
-      <p class="leading-relaxed text-sm" style="color: #4a4a4a;">Tujuan saya menjadi guru profesional adalah untuk dapat membantu peserta didik yang membutuhkan perhatian, bimbingan, dan pendampingan dalam menghadapi berbagai persoalan kehidupan mereka. Saya bercita-cita menjadi seorang pendidik yang mampu mendengarkan dengan aktif, memahami perasaan dan kebutuhan peserta didik secara empatik, serta memberikan arahan, motivasi, dan dukungan agar mereka dapat berkembang menjadi pribadi yang lebih sehat secara mental dan sosial.</p>
-     </div>
-    </div>
-   </section><!-- Kutipan -->
-   <section class="fade-in fade-in-delay-3" style="padding: 24px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="rounded-2xl p-8 text-center" style="background: linear-gradient(135deg, #104548, #1a6b6f); box-shadow: 0 8px 32px rgba(16,69,72,0.2);">
-      <i data-lucide="quote" style="width:32px;height:32px;color:rgba(255,255,255,0.3);margin:0 auto 12px;display:block;"></i>
-      <p id="quoteText" class="font-heading text-xl md:text-2xl italic text-white leading-relaxed mb-3">"Pendidikan adalah senjata paling ampuh yang bisa kamu gunakan untuk mengubah dunia."</p>
-      <p class="text-sm" style="color: rgba(255,255,255,0.6);">— Nelson Mandela</p>
-     </div>
-    </div>
-   </section><!-- Analisis Artefak -->
-   <section id="analisis" class="fade-in fade-in-delay-4 page-break" style="padding: 50px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="text-center mb-8">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-2" style="color: #104548;">Analisis Artefak Produk Pembelajaran</h2>
-      <div class="section-divider mx-auto"></div>
-     </div>
-     <div class="grid md:grid-cols-2 gap-5">
-      <!-- Kendala -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #fef2f2;">
-         <i data-lucide="alert-triangle" style="width:20px;height:20px;color:#dc2626;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Kendala Penyusunan</h3>
-       </div>
-       <ul class="space-y-2 text-sm" style="color: #4a4a4a;">
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Kesulitan menyesuaikan rencana layanan BK dengan kebutuhan nyata peserta didik di lapangan</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Keterbatasan referensi dan materi yang relevan dengan konteks lokal sekolah mitra</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Pengelolaan waktu dalam merancang instrumen asesmen yang komprehensif</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Koordinasi dengan guru pamong terkait penyesuaian format perangkat pembelajaran</li>
-       </ul>
-      </div><!-- Teori -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(16,69,72,0.08);">
-         <i data-lucide="book" style="width:20px;height:20px;color:#104548;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Teori &amp; Konsep Pedagogi</h3>
-       </div>
-       <ul class="space-y-2 text-sm" style="color: #4a4a4a;">
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> <strong>Person-Centered Approach (Carl Rogers)</strong> — membangun hubungan empatik dan penerimaan tanpa syarat</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> <strong>Konseling Behavioral</strong> — teknik modifikasi perilaku untuk perubahan positif peserta didik</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> <strong>Teori Perkembangan Karier (Super)</strong> — membantu peserta didik memahami tahap perkembangan karier</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> <strong>Pembelajaran Sosial-Emosional (SEL)</strong> — mengembangkan kecakapan sosial dan emosional</li>
-       </ul>
-      </div><!-- Faktor Keberhasilan -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #f0fdf4;">
-         <i data-lucide="check-circle" style="width:20px;height:20px;color:#16a34a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Faktor Keberhasilan</h3>
-       </div>
-       <ul class="space-y-2 text-sm" style="color: #4a4a4a;">
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Kolaborasi aktif dengan guru pamong dalam merancang layanan BK yang kontekstual</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Pendekatan empatik dan komunikasi yang terbuka dengan peserta didik</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Pemanfaatan media kreatif untuk meningkatkan partisipasi peserta didik</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Refleksi berkelanjutan setelah setiap siklus praktik mengajar</li>
-       </ul>
-      </div><!-- Perubahan Komponen -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-         <i data-lucide="refresh-cw" style="width:20px;height:20px;color:#b4884a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Adaptasi Situasi Kelas</h3>
-       </div>
-       <ul class="space-y-2 text-sm" style="color: #4a4a4a;">
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Penyesuaian metode layanan dari klasikal ke kelompok kecil untuk kelas dengan kebutuhan khusus</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Modifikasi media dan instrumen sesuai tingkat perkembangan peserta didik</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Fleksibilitas dalam pemilihan topik layanan berdasarkan hasil asesmen kebutuhan</li>
-        <li class="flex gap-2"><span style="color:#b4884a;">•</span> Penggunaan pendekatan individual untuk peserta didik yang memerlukan penanganan intensif</li>
-       </ul>
-      </div>
-     </div>
-    </div>
-   </section><!-- Dokumentasi Artefak -->
-   <section id="artefak" class="page-break" style="padding: 50px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="text-center mb-8">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-2" style="color: #104548;">Dokumentasi Artefak Pembelajaran</h2>
-      <div class="section-divider mx-auto mb-3"></div>
-      <p class="text-sm" style="color:#6b6b6b;">Koleksi produk, media, dan hasil kerja siswa dari 3 siklus praktik mengajar</p>
-     </div>
-     <div class="grid md:grid-cols-2 gap-5"><!-- RPP -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(16,69,72,0.08);">
-         <i data-lucide="file-text" style="width:20px;height:20px;color:#104548;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Rencana Pelayanan Layanan (RPL)</h3>
-       </div>
-       <p class="text-sm mb-4" style="color:#4a4a4a;">Tiga RPL yang telah disusun mengikuti standar kurikulum dan kebutuhan peserta didik di setiap siklus, mencakup analisis kebutuhan, tujuan layanan, materi, metode, media, dan instrumen evaluasi.</p>
-       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span><strong>Siklus 1:</strong> Layanan BK Orientasi (Pengenalan Program &amp; Tata Tertib Sekolah)</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span><strong>Siklus 2:</strong> Layanan BK Perencanaan Karir &amp; Potensi Diri</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span><strong>Siklus 3:</strong> Layanan BK Koping Stres &amp; Manajemen Emosi</span>
-        </div>
-       </div>
-      </div><!-- Media Pembelajaran -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-         <i data-lucide="image" style="width:20px;height:20px;color:#b4884a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Media &amp; Instrumen Layanan</h3>
-       </div>
-       <p class="text-sm mb-4" style="color:#4a4a4a;">Media pembelajaran inovatif yang dirancang untuk meningkatkan engagement dan pemahaman peserta didik, serta instrumen penilaian komprehensif untuk mengukur hasil belajar.</p>
-       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Slide presentasi interaktif &amp; video pembelajaran</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Lembar kerja peserta didik &amp; aktivitas kelompok</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Kuesioner asesmen kebutuhan &amp; evaluasi kepuasan layanan</span>
-        </div>
-       </div>
-      </div><!-- Hasil Kerja Siswa -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #f0fdf4;">
-         <i data-lucide="users" style="width:20px;height:20px;color:#16a34a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Hasil Kerja Peserta Didik</h3>
-       </div>
-       <p class="text-sm mb-4" style="color:#4a4a4a;">Produk kreatif dari peserta didik yang menunjukkan pemahaman dan partisipasi aktif dalam setiap layanan BK, termasuk peta karir, refleksi diri, dan strategi coping stress.</p>
-       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Peta konsep potensi diri &amp; minat karir</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Jurnal refleksi &amp; catatan pembelajaran pribadi</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Laporan diskusi kelompok &amp; action plan peningkatan diri</span>
-        </div>
-       </div>
-      </div><!-- Dokumentasi -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(16,69,72,0.08);">
-         <i data-lucide="camera" style="width:20px;height:20px;color:#104548;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Dokumentasi Visual</h3>
-       </div>
-       <p class="text-sm mb-4" style="color:#4a4a4a;">Foto dan video dari pelaksanaan layanan BK menunjukkan dinamika pembelajaran, interaksi guru-peserta didik, dan suasana kelas yang kondusif.</p>
-       <div class="space-y-2">
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Foto aktivitas pembelajaran di kelas</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Video singkat sesi layanan BK</span>
-        </div>
-        <div class="flex items-center gap-2 text-sm" style="color:#104548;"><i data-lucide="check" style="width:16px;height:16px;"></i><span>Testimonial peserta didik &amp; feedback guru pamong</span>
-        </div>
-       </div>
-      </div>
-     </div><!-- Analisis Komprehensif Artefak -->
-     <div class="rounded-2xl p-6 md:p-8 mt-5" style="background: rgba(16,69,72,0.02); border-left: 4px solid #b4884a;">
-      <h3 class="font-heading text-lg font-bold mb-4" style="color: #104548;">Analisis Mendalam Terhadap Artefak</h3>
-      <div class="space-y-4 text-sm" style="color:#4a4a4a;">
-       <div>
-        <p class="font-semibold mb-1" style="color:#104548;">1. Kesesuaian dengan Teori Pembelajaran</p>
-        <p>Setiap artefak dirancang dengan mengedepankan teori <strong>person-centered approach</strong> dan <strong>social-emotional learning (SEL)</strong>, memastikan layanan BK tidak hanya fokus pada transfer pengetahuan, tetapi juga pengembangan karakter dan kecakapan sosial-emosional peserta didik secara holistik.</p>
-       </div>
-       <div>
-        <p class="font-semibold mb-1" style="color:#104548;">2. Kejelasan Tujuan &amp; Indikator Keberhasilan</p>
-        <p>Setiap RPL diiringi dengan tujuan pembelajaran yang terukur dan indikator ketercapaian yang jelas, sehingga memudahkan evaluasi tingkat efektivitas layanan terhadap perkembangan peserta didik.</p>
-       </div>
-       <div>
-        <p class="font-semibold mb-1" style="color:#104548;">3. Kreativitas &amp; Inovasi dalam Media</p>
-        <p>Media pembelajaran yang disusun menggabungkan teknologi digital dan aktivitas interaktif yang relevan dengan karakteristik generasi peserta didik, meningkatkan motivasi dan partisipasi aktif.</p>
-       </div>
-       <div>
-        <p class="font-semibold mb-1" style="color:#104548;">4. Keterbukaan terhadap Perbaikan</p>
-        <p>Setiap artefak dilengkapi dengan catatan refleksi dan saran perbaikan berdasarkan feedback guru pamong, menunjukkan sikap profesional dalam mengembangkan kompetensi layanan BK.</p>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Penilaian Guru Pamong -->
-   <section id="penilaian" class="page-break" style="padding: 50px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="text-center mb-8">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-2" style="color: #104548;">Penilaian Guru Pamong</h2>
-      <div class="section-divider mx-auto mb-3"></div>
-      <p class="text-sm" style="color:#6b6b6b;">Lampiran 7 &amp; 8 — Instrumen Penilaian Perangkat Pembelajaran &amp; Praktik Mengajar • Evaluasi Komprehensif dari Guru Pamong</p>
-     </div><!-- Tabs -->
-     <div class="flex gap-2 mb-6 flex-wrap justify-center no-print">
-      <button onclick="showTab('perangkat')" id="tab-perangkat" class="tab-btn active px-5 py-2 rounded-full text-sm font-semibold" style="border: 2px solid #104548;">Perangkat Pembelajaran</button> <button onclick="showTab('praktik')" id="tab-praktik" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold" style="border: 2px solid #104548; color: #104548;">Praktik Mengajar</button> <button onclick="showTab('refleksi')" id="tab-refleksi" class="tab-btn px-5 py-2 rounded-full text-sm font-semibold" style="border: 2px solid #104548; color: #104548;">Refleksi Diri</button>
-     </div><!-- Perangkat Pembelajaran Content -->
-     <div id="content-perangkat" class="space-y-4">
-      <div class="rounded-2xl p-6" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <h3 class="font-heading text-lg font-bold mb-4" style="color: #104548;">Lampiran 7 — Penilaian Penyusunan Perangkat Pembelajaran</h3>
-       <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-         <thead>
-          <tr style="background: rgba(16,69,72,0.05);">
-           <th class="text-left p-3 rounded-tl-lg font-semibold" style="color:#104548;">Aspek Penilaian</th>
-           <th class="text-center p-3 font-semibold" style="color:#104548;width:80px;">Siklus 1</th>
-           <th class="text-center p-3 font-semibold" style="color:#104548;width:80px;">Siklus 2</th>
-           <th class="text-center p-3 rounded-tr-lg font-semibold" style="color:#104548;width:80px;">Siklus 3</th>
-          </tr>
-         </thead>
-         <tbody id="perangkatTable" style="color:#4a4a4a;">
-          <!-- Populated by JS -->
-         </tbody>
-        </table>
-       </div>
-      </div>
-     </div><!-- Praktik Mengajar Content -->
-     <div id="content-praktik" class="space-y-4" style="display:none;">
-      <div class="rounded-2xl p-6" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <h3 class="font-heading text-lg font-bold mb-4" style="color: #104548;">Lampiran 8 — Penilaian Praktik Mengajar (3 Siklus)</h3>
-       <div class="space-y-6" id="praktikCards">
-        <!-- Populated by JS -->
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Refleksi Diri & Pengembangan -->
-   <section id="refleksi-diri" class="page-break" style="padding: 50px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="text-center mb-8">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-2" style="color: #104548;">Refleksi Diri &amp; Pengembangan Profesional</h2>
-      <div class="section-divider mx-auto"></div>
-     </div><!-- Refleksi Tab Content -->
-     <div id="content-refleksi" class="space-y-5"><!-- Kekuatan -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #f0fdf4;">
-         <i data-lucide="star" style="width:20px;height:20px;color:#16a34a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Kekuatan yang Ditemukan</h3>
-       </div>
-       <ul class="space-y-3 text-sm" style="color:#4a4a4a;">
-        <li class="flex gap-3"><span class="text-green-600 font-bold">✓</span> <span><strong style="color:#104548;">Kemampuan Mendengarkan Aktif</strong> — Saya mampu menciptakan ruang aman bagi peserta didik untuk berbagi, membangun kepercayaan melalui perhatian penuh dan empati genuine terhadap setiap cerita yang mereka sampaikan.</span></li>
-        <li class="flex gap-3"><span class="text-green-600 font-bold">✓</span> <span><strong style="color:#104548;">Adaptabilitas &amp; Fleksibilitas</strong> — Kemampuan menyesuaikan rencana layanan saat dihadapkan dengan kondisi kelas yang berbeda, memodifikasi metode tanpa mengorbankan tujuan pembelajaran utama.</span></li>
-        <li class="flex gap-3"><span class="text-green-600 font-bold">✓</span> <span><strong style="color:#104548;">Kreativitas dalam Merancang Media</strong> — Saya konsisten menggunakan media pembelajaran yang engaging dan kontekstual, meningkatkan partisipasi peserta didik melalui aktivitas interaktif dan bermakna.</span></li>
-        <li class="flex gap-3"><span class="text-green-600 font-bold">✓</span> <span><strong style="color:#104548;">Sikap Reflektif &amp; Terbuka pada Masukan</strong> — Secara proaktif mencari feedback dari guru pamong, DPL, dan peserta didik untuk perbaikan berkelanjutan, menunjukkan mindset growth dan profesionalisme tinggi.</span></li>
-       </ul>
-      </div><!-- Kelemahan & Area Pengembangan -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: #fef2f2;">
-         <i data-lucide="alert-circle" style="width:20px;height:20px;color:#dc2626;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Area Pengembangan</h3>
-       </div>
-       <ul class="space-y-3 text-sm" style="color:#4a4a4a;">
-        <li class="flex gap-3"><span class="text-amber-600 font-bold">⚡</span> <span><strong style="color:#104548;">Manajemen Waktu dalam Layanan</strong> — Terkadang layanan melampaui alokasi waktu yang telah direncanakan karena focused pada interaksi individual peserta didik. Perlu lebih disiplin dalam time management tanpa mengorbankan kualitas interaksi.</span></li>
-        <li class="flex gap-3"><span class="text-amber-600 font-bold">⚡</span> <span><strong style="color:#104548;">Pendalaman Teori &amp; Teknik Konseling Lanjut</strong> — Masih perlu memperkaya wawasan tentang teknik-teknik konseling spesifik (cognitive behavioral, narrative therapy) untuk menangani kasus-kasus yang lebih kompleks dan beragam.</span></li>
-        <li class="flex gap-3"><span class="text-amber-600 font-bold">⚡</span> <span><strong style="color:#104548;">Kepercayaan Diri dalam Situasi Challenging</strong> — Pada awal praktik, kepercayaan diri masih terbatas ketika menghadapi peserta didik dengan perilaku disruptif. Namun, hal ini terus meningkat seiring pengalaman dan dukungan guru pamong.</span></li>
-        <li class="flex gap-3"><span class="text-amber-600 font-bold">⚡</span> <span><strong style="color:#104548;">Integrasi Teknologi dalam Layanan BK</strong> — Perlu mengeksplorasi lebih lanjut penggunaan platform digital untuk follow-up layanan, monitoring perkembangan peserta didik, dan dokumentasi yang lebih sistematis.</span></li>
-       </ul>
-      </div><!-- Rencana Tindak Lanjut -->
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-         <i data-lucide="target" style="width:20px;height:20px;color:#b4884a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Rencana Tindak Lanjut &amp; Pengembangan Diri</h3>
-       </div>
-       <div class="space-y-4 text-sm" style="color:#4a4a4a;">
-        <div class="p-4 rounded-lg" style="background: rgba(16,69,72,0.02); border-left: 3px solid #b4884a;">
-         <p class="font-semibold mb-2" style="color:#104548;">Jangka Pendek (3-6 Bulan ke Depan)</p>
-         <ul class="space-y-1" style="margin-left: 16px;">
-          <li>• Mengikuti pelatihan tambahan tentang teknik konseling modern &amp; evidence-based practices dalam BK</li>
-          <li>• Membuat checklist manajemen waktu untuk setiap sesi layanan dan melakukan evaluasi konsistensi implementasinya</li>
-          <li>• Membangun portfolio digital untuk dokumentasi layanan BK dan progress tracking peserta didik</li>
-         </ul>
-        </div>
-        <div class="p-4 rounded-lg" style="background: rgba(180,136,74,0.05); border-left: 3px solid #b4884a;">
-         <p class="font-semibold mb-2" style="color:#104548;">Jangka Menengah (6-12 Bulan)</p>
-         <ul class="space-y-1" style="margin-left: 16px;">
-          <li>• Memperdalam sertifikasi atau pelatihan khusus di bidang konseling karir dan trauma-informed counseling</li>
-          <li>• Mengembangkan program BK inovatif yang terintegrasi dengan kurikulum akademik &amp; kemitraan dengan orang tua</li>
-          <li>• Memulai action research tentang efektivitas layanan BK terhadap well-being peserta didik</li>
-         </ul>
-        </div>
-        <div class="p-4 rounded-lg" style="background: rgba(16,69,72,0.02); border-left: 3px solid #b4884a;">
-         <p class="font-semibold mb-2" style="color:#104548;">Jangka Panjang (1-3 Tahun)</p>
-         <ul class="space-y-1" style="margin-left: 16px;">
-          <li>• Menjadi guru BK yang diakui di lingkungan sekolah sebagai sosok yang penuh dedikasi, inovatif, dan berkontribusi pada peningkatan kultur sekolah yang positif</li>
-          <li>• Mengembangkan leadership dalam bidang BK, mungkin melalui peran sebagai koordinator BK atau mentor bagi guru baru</li>
-          <li>• Terus melakukan research &amp; publikasi tentang best practices layanan BK untuk kontribusi nyata pada pengembangan profesi</li>
-         </ul>
-        </div>
-       </div>
-      </div><!-- Kesimpulan Refleksi -->
-      <div class="rounded-2xl p-6 md:p-8" style="background: linear-gradient(135deg, rgba(16,69,72,0.08), rgba(180,136,74,0.05));">
-       <p class="italic text-sm" style="color:#4a4a4a;"><strong style="color:#104548;">Penutup Refleksi:</strong> Pengalaman PPL Terbimbing telah memberikan pembelajaran berharga tentang kompleksitas profesi guru BK dan pentingnya pendekatan holistik dalam membantu peserta didik. Saya menyadari bahwa menjadi guru BK yang profesional bukan perjalanan yang selesai, tetapi proses pembelajaran berkelanjutan yang membutuhkan dedikasi, empati, dan keterbukaan untuk terus berkembang. Dengan fondasi yang telah dibangun selama PPL ini, saya bersemangat untuk melanjutkan pengembangan diri dan memberikan layanan BK yang bermakna bagi setiap peserta didik yang saya tangani di masa depan.</p>
-      </div>
-     </div>
-    </div>
-   </section><!-- Model Guru -->
-   <section id="model-guru" class="page-break" style="padding: 50px 16px 0;">
-    <div class="max-w-5xl mx-auto">
-     <div class="text-center mb-8">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-2" style="color: #104548;">Model Guru yang Dituju</h2>
-      <div class="section-divider mx-auto"></div>
-     </div><!-- Misi -->
-     <div class="rounded-2xl p-6 md:p-8 mb-5" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-      <div class="flex items-center gap-3 mb-4">
-       <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #104548, #1a6b6f);">
-        <i data-lucide="flag" style="width:20px;height:20px;color:#fff;"></i>
-       </div>
-       <h3 class="font-heading text-lg font-bold" style="color: #104548;">Misi Profesional</h3>
-      </div>
-      <p id="missionText" class="leading-relaxed" style="color: #4a4a4a;">Menjadi guru Bimbingan dan Konseling yang profesional, empatik, dan inovatif, yang mampu memberikan layanan BK berkualitas untuk membantu setiap peserta didik menemukan potensi terbaik mereka, mengatasi hambatan perkembangan, serta menjadi pribadi yang tangguh, mandiri, dan berkontribusi positif bagi masyarakat.</p>
-     </div><!-- Kompetensi & Karakter -->
-     <div class="grid md:grid-cols-2 gap-5">
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-5">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(16,69,72,0.08);">
-         <i data-lucide="award" style="width:20px;height:20px;color:#104548;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Kompetensi yang Dibangun</h3>
-       </div>
-       <div class="space-y-3">
-        <div class="flex items-start gap-3">
-         <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#104548;"><span class="text-white text-xs font-bold">1</span>
-         </div>
-         <div><strong class="text-sm" style="color:#104548;">Kompetensi Pedagogik</strong>
-          <p class="text-xs mt-0.5" style="color:#6b6b6b;">Memahami karakteristik dan kebutuhan perkembangan peserta didik</p>
-         </div>
-        </div>
-        <div class="flex items-start gap-3">
-         <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#104548;"><span class="text-white text-xs font-bold">2</span>
-         </div>
-         <div><strong class="text-sm" style="color:#104548;">Kompetensi Profesional</strong>
-          <p class="text-xs mt-0.5" style="color:#6b6b6b;">Menguasai teori, teknik, dan strategi layanan BK secara komprehensif</p>
-         </div>
-        </div>
-        <div class="flex items-start gap-3">
-         <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#104548;"><span class="text-white text-xs font-bold">3</span>
-         </div>
-         <div><strong class="text-sm" style="color:#104548;">Kompetensi Sosial</strong>
-          <p class="text-xs mt-0.5" style="color:#6b6b6b;">Membangun relasi kolaboratif dengan peserta didik, rekan sejawat, dan orang tua</p>
-         </div>
-        </div>
-        <div class="flex items-start gap-3">
-         <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background:#104548;"><span class="text-white text-xs font-bold">4</span>
-         </div>
-         <div><strong class="text-sm" style="color:#104548;">Kompetensi Kepribadian</strong>
-          <p class="text-xs mt-0.5" style="color:#6b6b6b;">Menjadi teladan dengan integritas, empati, dan dedikasi tinggi</p>
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="rounded-2xl p-6 card-hover" style="background: #fff; box-shadow: 0 2px 20px rgba(16,69,72,0.06);">
-       <div class="flex items-center gap-3 mb-5">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(180,136,74,0.12);">
-         <i data-lucide="heart" style="width:20px;height:20px;color:#b4884a;"></i>
-        </div>
-        <h3 class="font-heading text-lg font-bold" style="color: #104548;">Karakter yang Dibangun</h3>
-       </div>
-       <div class="space-y-3" id="karakterList">
-        <!-- Populated by JS -->
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Footer -->
-   <footer style="padding: 40px 16px 30px;">
-    <div class="max-w-5xl mx-auto text-center">
-     <div class="section-divider mx-auto mb-4"></div>
-     <p class="font-heading text-sm" style="color: #104548;">E-Portfolio 1 — Zwarida Suci Zulfatia</p>
-     <p class="text-xs mt-1" style="color: #9a9a9a;">Bimbingan dan Konseling • Polewali Mandar</p>
-    </div>
-   </footer>
-  </div>
-  <script>
-    // Data
-    const perangkatData = [
-      { aspek: 'Kesesuaian tujuan layanan dengan kebutuhan peserta didik', s1: 78, s2: 84, s3: 90 },
-      { aspek: 'Ketepatan pemilihan materi layanan BK', s1: 75, s2: 82, s3: 88 },
-      { aspek: 'Sistematika dan kelengkapan RPL', s1: 80, s2: 85, s3: 92 },
-      { aspek: 'Kesesuaian metode dan media layanan', s1: 76, s2: 83, s3: 89 },
-      { aspek: 'Instrumen evaluasi layanan', s1: 74, s2: 80, s3: 87 },
-    ];
+import React, { useState } from 'react';
+import { 
+  MapPin, School, BookOpen, Users, User, FileText, 
+  Video, Calendar, CheckCircle, ChevronRight, Award, Image as ImageIcon,
+  Mail, Phone
+} from 'lucide-react';
 
-    const praktikData = [
-      { siklus: 'Siklus 1', catatan: 'Masih perlu meningkatkan pengelolaan dinamika kelompok dan kepercayaan diri dalam menyampaikan materi layanan BK.', skor: 76, aspek: ['Pembukaan layanan: Cukup Baik', 'Penyampaian materi: Perlu peningkatan', 'Interaksi dengan peserta didik: Baik', 'Penutupan & evaluasi: Cukup'] },
-      { siklus: 'Siklus 2', catatan: 'Kemajuan signifikan dalam penggunaan teknik konseling dan pendekatan empatik terhadap peserta didik.', skor: 84, aspek: ['Pembukaan layanan: Baik', 'Penyampaian materi: Baik', 'Interaksi dengan peserta didik: Sangat Baik', 'Penutupan & evaluasi: Baik'] },
-      { siklus: 'Siklus 3', catatan: 'Menunjukkan peningkatan menyeluruh, mampu menciptakan suasana layanan yang kondusif dan bermakna.', skor: 91, aspek: ['Pembukaan layanan: Sangat Baik', 'Penyampaian materi: Sangat Baik', 'Interaksi dengan peserta didik: Sangat Baik', 'Penutupan & evaluasi: Sangat Baik'] },
-    ];
+// --- DATA SIKLUS PPL ---
+const cycleData = [
+  {
+    id: 1,
+    title: "Siklus 1: Bimbingan Klasikal",
+    theme: "Kesiapan Karir dan Studi Lanjut Lulusan SMK",
+    date: "Minggu ke-2 & 3",
+    sasaran: "Kelas XII TKJ 1 (Teknik Komputer dan Jaringan)",
+    situasi: "Sebagian besar siswa kelas XII masih bingung menentukan pilihan setelah lulus dari SMKN 3 Makassar, apakah ingin langsung bekerja, melanjutkan kuliah, atau berwirausaha.",
+    aksi: "Memberikan layanan Bimbingan Klasikal menggunakan metode Problem Based Learning (PBL) berbantuan media interaktif (Canva & Mentimeter) untuk memetakan minat dan bakat karir.",
+    refleksi: "Antusiasme siswa sangat tinggi. Penggunaan media digital sangat efektif untuk siswa jurusan TKJ. Evaluasi proses menunjukkan 85% siswa mulai memiliki pandangan yang jelas mengenai roadmap karir mereka.",
+    artefak: [
+      { icon: <FileText size={18}/>, name: "Modul/RPL Bimbingan Klasikal" },
+      { icon: <Video size={18}/>, name: "Video Pelaksanaan Layanan (15 Menit)" },
+      { icon: <FileText size={18}/>, name: "Hasil LKPD & Evaluasi" }
+    ]
+  },
+  {
+    id: 2,
+    title: "Siklus 2: Konseling Individual",
+    theme: "Mengatasi Prokrastinasi Akademik (Tugas Prakerin)",
+    date: "Minggu ke-4 & 5",
+    sasaran: "Siswa Kelas XI Perhotelan (Inisial: A.R)",
+    situasi: "Konseli mengalami penurunan motivasi belajar yang drastis pasca-Prakerin (Praktik Kerja Industri) dan sering menunda-nunda pengumpulan laporan prakerin hingga terancam tidak naik kelas.",
+    aksi: "Melaksanakan sesi Konseling Individual dengan pendekatan Solution-Focused Brief Therapy (SFBT). Fokus pada pencarian solusi dan pengecualian (exception) saat konseli berhasil disiplin, serta menyusun 'Miracle Question'.",
+    refleksi: "Pendekatan SFBT sangat cocok untuk siswa SMK yang membutuhkan solusi praktis dan cepat. Konseli berhasil membuat jadwal harian baru dan mengumpulkan laporan prakerin secara bertahap dalam waktu 2 minggu.",
+    artefak: [
+      { icon: <FileText size={18}/>, name: "Laporan Konseling (Identitas Disamarkan)" },
+      { icon: <FileText size={18}/>, name: "Verbatim Konseling Individual" },
+      { icon: <FileText size={18}/>, name: "Lembar Komitmen Konseli" }
+    ]
+  },
+  {
+    id: 3,
+    title: "Siklus 3: Bimbingan Kelompok",
+    theme: "Manajemen Emosi dan Etika Komunikasi Interpersonal",
+    date: "Minggu ke-6 & 7",
+    sasaran: "8 Siswa Kelas X Tata Boga",
+    situasi: "Terdapat dinamika kelompok yang kurang sehat di kelas, ditandai dengan seringnya terjadi miskomunikasi dan konflik kecil antar teman sebaya saat praktik di dapur/laboratorium.",
+    aksi: "Melakukan layanan Bimbingan Kelompok dengan teknik Sosiodrama. Anggota kelompok memainkan peran terkait situasi konflik di dapur praktik dan cara menyelesaikannya dengan komunikasi asertif.",
+    refleksi: "Teknik sosiodrama berhasil mencairkan suasana. Anggota kelompok menyadari pentingnya mengelola emosi (stress release) saat bekerja di bawah tekanan (seperti lingkungan dapur profesional). Solidaritas kelompok meningkat.",
+    artefak: [
+      { icon: <FileText size={18}/>, name: "RPL Bimbingan Kelompok" },
+      { icon: <Video size={18}/>, name: "Video Cuplikan Sosiodrama" },
+      { icon: <FileText size={18}/>, name: "Lembar Evaluasi Hasil (BMB3)" }
+    ]
+  }
+];
 
-    const karakterData = [
-      { icon: 'heart-handshake', name: 'Empati', desc: 'Mampu merasakan dan memahami kondisi peserta didik secara mendalam' },
-      { icon: 'shield', name: 'Integritas', desc: 'Menjunjung tinggi kejujuran dan etika profesi konselor' },
-      { icon: 'ear', name: 'Mendengarkan Aktif', desc: 'Memberikan perhatian penuh dan menghargai setiap cerita peserta didik' },
-      { icon: 'flame', name: 'Dedikasi', desc: 'Berkomitmen penuh dalam melayani dan membimbing peserta didik' },
-      { icon: 'lightbulb', name: 'Inovatif', desc: 'Terus mengembangkan metode layanan BK yang kreatif dan efektif' },
-    ];
+export default function PortfolioApp() {
+  const [activeCycle, setActiveCycle] = useState(1);
 
-    // Render perangkat table
-    const perangkatTable = document.getElementById('perangkatTable');
-    perangkatData.forEach(row => {
-      perangkatTable.innerHTML += `
-        <tr style="border-bottom:1px solid #f0ede8;">
-          <td class="p-3">${row.aspek}</td>
-          <td class="text-center p-3 font-semibold">${row.s1}</td>
-          <td class="text-center p-3 font-semibold">${row.s2}</td>
-          <td class="text-center p-3 font-semibold" style="color:#104548;">${row.s3}</td>
-        </tr>`;
-    });
-
-    // Render praktik cards
-    const praktikCards = document.getElementById('praktikCards');
-    praktikData.forEach(c => {
-      praktikCards.innerHTML += `
-        <div class="cycle-card rounded-xl p-5" style="background:rgba(16,69,72,0.02);">
-          <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
-            <h4 class="font-heading font-bold" style="color:#104548;">${c.siklus}</h4>
-            <span class="px-3 py-1 rounded-full text-sm font-bold" style="background:${c.skor>=90?'#f0fdf4;color:#16a34a':c.skor>=80?'#fffbeb;color:#d97706':'rgba(16,69,72,0.08);color:#104548'}">${c.skor}/100</span>
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+      
+      {/* NAVBAR */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center gap-2">
+              <Award className="text-blue-600" size={28} />
+              <span className="font-bold text-xl tracking-tight text-slate-900">E-Portofolio PPG</span>
+            </div>
+            <div className="hidden md:flex space-x-8 text-sm font-medium">
+              <a href="#beranda" className="text-slate-600 hover:text-blue-600 transition-colors">Beranda</a>
+              <a href="#profil" className="text-slate-600 hover:text-blue-600 transition-colors">Profil</a>
+              <a href="#siklus" className="text-slate-600 hover:text-blue-600 transition-colors">Laporan Siklus</a>
+              <a href="#galeri" className="text-slate-600 hover:text-blue-600 transition-colors">Galeri</a>
+            </div>
           </div>
-          <div class="score-bar mb-3"><div class="score-fill" style="width:${c.skor}%"></div></div>
-          <div class="grid grid-cols-2 gap-2 mb-3">${c.aspek.map(a=>`<span class="text-xs px-2 py-1 rounded" style="background:rgba(16,69,72,0.05);color:#4a4a4a;">${a}</span>`).join('')}</div>
-          <p class="text-sm italic" style="color:#6b6b6b;">"${c.catatan}"</p>
-        </div>`;
-    });
+        </div>
+      </nav>
 
-    // Render karakter
-    const karakterList = document.getElementById('karakterList');
-    karakterData.forEach(k => {
-      karakterList.innerHTML += `
-        <div class="flex items-start gap-3">
-          <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background:rgba(180,136,74,0.15);"><i data-lucide="${k.icon}" style="width:14px;height:14px;color:#b4884a;"></i></div>
-          <div><strong class="text-sm" style="color:#104548;">${k.name}</strong><p class="text-xs mt-0.5" style="color:#6b6b6b;">${k.desc}</p></div>
-        </div>`;
-    });
+      {/* HERO SECTION */}
+      <header id="beranda" className="relative pt-24 pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 -z-10" />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 -z-10" />
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold mb-6 shadow-sm">
+            <School size={16} />
+            Praktik Pengalaman Lapangan (PPL)
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+            E-Portofolio Bimbingan <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+              dan Konseling
+            </span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg text-slate-600 mb-10 leading-relaxed">
+            Kumpulan artefak, refleksi, dan dokumentasi pelaksanaan praktik layanan Bimbingan dan Konseling dalam rangka Pendidikan Profesi Guru (PPG).
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-xl shadow-md border border-slate-100">
+              <MapPin className="text-red-500" size={20} />
+              <span className="font-semibold text-slate-700">SMKN 3 Makassar</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-xl shadow-md border border-slate-100">
+              <Calendar className="text-indigo-500" size={20} />
+              <span className="font-semibold text-slate-700">Tahun Ajaran 2025/2026</span>
+            </div>
+          </div>
+        </div>
+      </header>
 
-    // Tabs
-    function showTab(tab) {
-      document.getElementById('content-perangkat').style.display = tab === 'perangkat' ? 'block' : 'none';
-      document.getElementById('content-praktik').style.display = tab === 'praktik' ? 'block' : 'none';
-      document.getElementById('content-refleksi').style.display = tab === 'refleksi' ? 'block' : 'none';
-      document.getElementById('tab-perangkat').classList.toggle('active', tab === 'perangkat');
-      document.getElementById('tab-praktik').classList.toggle('active', tab === 'praktik');
-      document.getElementById('tab-refleksi').classList.toggle('active', tab === 'refleksi');
-    }
+      {/* PROFIL SECTION */}
+      <section id="profil" className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-12 items-center">
+            <div className="flex justify-center">
+              <div className="relative w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white transform -rotate-3 transition-transform hover:rotate-0 duration-300">
+                {/* Fallback image */}
+                <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
+                  <User size={80} className="text-slate-400" />
+                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" 
+                  alt="Foto Mahasiswa" 
+                  className="absolute inset-0 w-full h-full object-cover z-10"
+                />
+              </div>
+            </div>
+            <div className="md:col-span-2">
+              <h2 className="text-3xl font-bold text-slate-900 mb-2">Profil Mahasiswa</h2>
+              <div className="h-1 w-20 bg-blue-600 rounded-full mb-6"></div>
+              <h3 className="text-xl font-semibold text-slate-800 mb-4">Nama Mahasiswa PPG, S.Pd.</h3>
+              <p className="text-slate-600 mb-6 leading-relaxed text-justify">
+                Saya adalah mahasiswa Pendidikan Profesi Guru (PPG) program studi Bimbingan dan Konseling. 
+                Selama pelaksanaan PPL di <strong>SMKN 3 Makassar</strong>, saya berfokus pada pengembangan 
+                karakter, kesiapan kerja, dan kesejahteraan psikologis siswa vokasi. Pendekatan yang 
+                saya gunakan mengedepankan asas empati, solusi-fokus, dan pemanfaatan media digital 
+                yang relevan dengan generasi Z di lingkungan sekolah menengah kejuruan.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                  <div className="bg-blue-100 p-2 rounded-md"><BookOpen className="text-blue-600" size={20}/></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-medium">LPTK</p>
+                    <p className="text-sm font-semibold text-slate-800">Universitas Negeri Makassar</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                  <div className="bg-indigo-100 p-2 rounded-md"><School className="text-indigo-600" size={20}/></div>
+                  <div>
+                    <p className="text-xs text-slate-500 font-medium">Sekolah Mitra</p>
+                    <p className="text-sm font-semibold text-slate-800">SMKN 3 Makassar</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    // Default config
-    const defaultConfig = {
-      background_color: '#faf8f4',
-      surface_color: '#ffffff',
-      text_color: '#2c2c2c',
-      primary_color: '#104548',
-      accent_color: '#b4884a',
-      font_family: 'Playfair Display',
-      font_size: 16,
-      student_name: 'Zwarida Suci Zulfatia',
-      quote_text: '"Pendidikan adalah senjata paling ampuh yang bisa kamu gunakan untuk mengubah dunia."',
-      mission_text: 'Menjadi guru Bimbingan dan Konseling yang profesional, empatik, dan inovatif, yang mampu memberikan layanan BK berkualitas untuk membantu setiap peserta didik menemukan potensi terbaik mereka, mengatasi hambatan perkembangan, serta menjadi pribadi yang tangguh, mandiri, dan berkontribusi positif bagi masyarakat.'
-    };
+      {/* SIKLUS PPL SECTION */}
+      <section id="siklus" className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Laporan Pelaksanaan Siklus</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Dokumentasi pelaksanaan praktik layanan Bimbingan dan Konseling yang dibagi menjadi 3 siklus dengan fokus layanan yang berbeda.
+            </p>
+          </div>
 
-    function applyConfig(config) {
-      const bg = config.background_color || defaultConfig.background_color;
-      const surface = config.surface_color || defaultConfig.surface_color;
-      const text = config.text_color || defaultConfig.text_color;
-      const primary = config.primary_color || defaultConfig.primary_color;
-      const accent = config.accent_color || defaultConfig.accent_color;
-      const font = config.font_family || defaultConfig.font_family;
-      const size = config.font_size || defaultConfig.font_size;
+          {/* Tab Navigation */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {cycleData.map((cycle) => (
+              <button
+                key={cycle.id}
+                onClick={() => setActiveCycle(cycle.id)}
+                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm ${
+                  activeCycle === cycle.id
+                    ? 'bg-blue-600 text-white shadow-blue-200'
+                    : 'bg-white text-slate-600 hover:bg-blue-50 border border-slate-200'
+                }`}
+              >
+                {cycle.title}
+              </button>
+            ))}
+          </div>
 
-      document.body.style.backgroundColor = bg;
-      document.body.style.color = text;
+          {/* Tab Content */}
+          <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+            {cycleData.map((cycle) => (
+              <div 
+                key={cycle.id} 
+                className={`transition-opacity duration-500 p-8 md:p-10 ${activeCycle === cycle.id ? 'block animate-fade-in' : 'hidden'}`}
+              >
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 pb-6 border-b border-slate-100">
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-2">{cycle.theme}</h3>
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 font-medium">
+                      <span className="flex items-center gap-1.5 bg-slate-100 px-3 py-1 rounded-md">
+                        <Calendar size={16} className="text-slate-500" /> {cycle.date}
+                      </span>
+                      <span className="flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-md">
+                        <Users size={16} /> {cycle.sasaran}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-5xl font-black text-slate-100 select-none">
+                    0{cycle.id}
+                  </div>
+                </div>
 
-      // Name
-      const heroName = document.getElementById('heroName');
-      if (heroName) {
-        heroName.textContent = config.student_name || defaultConfig.student_name;
-        heroName.style.color = primary;
-        heroName.style.fontFamily = `${font}, Georgia, serif`;
-      }
+                <div className="grid md:grid-cols-2 gap-10">
+                  <div className="space-y-8">
+                    {/* Situasi / Permasalahan */}
+                    <div>
+                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center">1</div>
+                        Kondisi / Situasi
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 text-justify">
+                        {cycle.situasi}
+                      </p>
+                    </div>
 
-      // Quote
-      const quoteText = document.getElementById('quoteText');
-      if (quoteText) {
-        quoteText.textContent = config.quote_text || defaultConfig.quote_text;
-        quoteText.style.fontFamily = `${font}, Georgia, serif`;
-      }
+                    {/* Aksi / Pelaksanaan */}
+                    <div>
+                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">2</div>
+                        Aksi & Layanan
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 text-justify">
+                        {cycle.aksi}
+                      </p>
+                    </div>
 
-      // Mission
-      const missionText = document.getElementById('missionText');
-      if (missionText) missionText.textContent = config.mission_text || defaultConfig.mission_text;
+                    {/* Refleksi / Hasil */}
+                    <div>
+                      <h4 className="flex items-center gap-2 text-lg font-bold text-slate-800 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center">3</div>
+                        Refleksi & Evaluasi
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed bg-green-50/50 p-4 rounded-xl border border-green-100 text-justify">
+                        {cycle.refleksi}
+                      </p>
+                    </div>
+                  </div>
 
-      // Apply primary color to headings
-      document.querySelectorAll('.font-heading').forEach(el => {
-        el.style.fontFamily = `${font}, Georgia, serif`;
-      });
-      document.querySelectorAll('h2, h3').forEach(el => {
-        if (!el.classList.contains('text-white')) el.style.color = primary;
-      });
+                  {/* Artefak Column */}
+                  <div className="bg-slate-50 p-6 md:p-8 rounded-2xl border border-slate-100 h-fit">
+                    <h4 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                      <Award className="text-blue-600" />
+                      Artefak & Bukti Fisik
+                    </h4>
+                    <div className="space-y-4">
+                      {cycle.artefak.map((artefak, idx) => (
+                        <div key={idx} className="group flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-md transition-all cursor-pointer">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                              {artefak.icon}
+                            </div>
+                            <span className="font-medium text-slate-700 group-hover:text-blue-700 transition-colors">
+                              {artefak.name}
+                            </span>
+                          </div>
+                          <ChevronRight size={18} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="mt-8 p-4 bg-yellow-50 rounded-xl border border-yellow-100 flex items-start gap-3">
+                      <CheckCircle className="text-yellow-600 shrink-0 mt-0.5" size={20} />
+                      <p className="text-sm text-yellow-800">
+                        File artefak lengkap telah diunggah ke dalam sistem LMS / Google Drive dan disetujui oleh Guru Pamong dan Dosen Pembimbing Lapangan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      // Surface cards
-      document.querySelectorAll('.card-hover, .rounded-2xl').forEach(el => {
-        if (el.style.background && !el.style.background.includes('gradient') && !el.style.background.includes('rgba')) {
-          el.style.background = surface;
-        }
-      });
+      {/* GALERI & DOKUMENTASI */}
+      <section id="galeri" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Galeri Dokumentasi PPL</h2>
+            <p className="text-slate-600">Momen kegiatan selama pelaksanaan Praktik Pengalaman Lapangan di SMKN 3 Makassar.</p>
+          </div>
 
-      // Accent dividers
-      document.querySelectorAll('.section-divider').forEach(el => {
-        el.style.background = `linear-gradient(90deg, ${primary}, ${accent})`;
-      });
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {/* Foto 1 */}
+            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
+              <img 
+                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=600" 
+                alt="Bimbingan Klasikal" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 1</span></div>
+                <p className="text-white font-medium">Suasana Layanan Bimbingan Klasikal Kelas XII</p>
+              </div>
+            </div>
 
-      // Font size scaling
-      document.body.style.fontSize = `${size}px`;
-    }
+            {/* Foto 2 */}
+            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
+              <img 
+                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600" 
+                alt="Konseling Individual" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 2</span></div>
+                <p className="text-white font-medium">Pendekatan SFBT di Ruang BK</p>
+              </div>
+            </div>
 
-    // Element SDK
-    if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange: async (config) => applyConfig(config),
-        mapToCapabilities: (config) => ({
-          recolorables: [
-            { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-            { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-            { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-            { get: () => config.primary_color || defaultConfig.primary_color, set: (v) => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
-            { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
-          ],
-          borderables: [],
-          fontEditable: {
-            get: () => config.font_family || defaultConfig.font_family,
-            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
-          },
-          fontSizeable: {
-            get: () => config.font_size || defaultConfig.font_size,
-            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-          }
-        }),
-        mapToEditPanelValues: (config) => new Map([
-          ['student_name', config.student_name || defaultConfig.student_name],
-          ['quote_text', config.quote_text || defaultConfig.quote_text],
-          ['mission_text', config.mission_text || defaultConfig.mission_text],
-        ])
-      });
-    }
+            {/* Foto 3 */}
+            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer">
+              <img 
+                src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600" 
+                alt="Bimbingan Kelompok" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white mb-1"><ImageIcon size={16}/> <span className="text-sm font-semibold">Siklus 3</span></div>
+                <p className="text-white font-medium">Sosiodrama Bimbingan Kelompok Siswa Tata Boga</p>
+              </div>
+            </div>
+            
+            {/* Foto 4 */}
+            <div className="group relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-video bg-slate-200 cursor-pointer sm:col-span-2 md:col-span-3">
+               <img 
+                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200" 
+                alt="Foto Bersama" 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                style={{ objectPosition: 'center 30%' }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                 <p className="text-white font-bold text-lg">Kegiatan Bersama Guru Pamong dan Staf SMKN 3 Makassar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    lucide.createIcons();
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ef0bfab410f4083',t:'MTc3NjY1MjQ1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+      {/* FOOTER */}
+      <footer className="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Award className="text-blue-500" size={24} />
+                <span className="font-bold text-xl text-white">PPG BK</span>
+              </div>
+              <p className="text-sm text-slate-400 mb-4 leading-relaxed">
+                E-Portofolio ini disusun sebagai salah satu luaran (output) wajib pelaksanaan Praktik Pengalaman Lapangan (PPL) Pendidikan Profesi Guru.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Lokasi PPL</h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-2">
+                  <School size={18} className="text-slate-400 shrink-0 mt-0.5" />
+                  <span>SMKN 3 Makassar</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <MapPin size={18} className="text-slate-400 shrink-0 mt-0.5" />
+                  <span>Jl. Bonto Biraeng No.12, Makassar, Sulawesi Selatan</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Kontak</h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-center gap-2">
+                  <Mail size={18} className="text-slate-400" />
+                  <span>mahasiswa.ppg@univ.edu</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone size={18} className="text-slate-400" />
+                  <span>+62 812-3456-7890</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
+            <p>&copy; {new Date().getFullYear()} E-Portofolio PPG BK. Dibuat untuk keperluan akademik.</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
